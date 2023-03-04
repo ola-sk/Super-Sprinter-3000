@@ -15,9 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-//@NoArgsConstructor
 @Entity
-//@Table(name = "user_stories")
 public class UserStory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +24,6 @@ public class UserStory {
     private String title;
     @NotBlank(message = "Cannot be empty")
     private String story;
-//    @Column(name = "acceptance_criteria")
     private String acceptanceCriteria;
     @NotNull(message = "Cannot be empty")
     @DecimalMin(value = "0.5", message = "min 0.5")
@@ -35,4 +32,15 @@ public class UserStory {
     private Integer businessValue = 100;
     @Enumerated(EnumType.STRING)
     private UserStoryStatus userStoryStatus;
+
+    public UserStory() { }
+
+    public UserStory(String title, String story, String acceptanceCriteria, Double estimation, Integer businessValue, UserStoryStatus userStoryStatus) {
+        this.title = title;
+        this.story = story;
+        this.acceptanceCriteria = acceptanceCriteria;
+        this.estimation = estimation;
+        this.businessValue = businessValue;
+        this.userStoryStatus = userStoryStatus;
+    }
 }
