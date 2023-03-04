@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserStoryService {
@@ -28,7 +29,7 @@ public class UserStoryService {
                 .toList();
     }
 
-    public UserStoryDto getUserStory(Long id) {
+    public UserStoryDto getUserStory(UUID id) {
         return userStoryRepository.findById(id)
                 .map(userStoryMapper::mapUserStoryEntityToDto)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/user-stories")
@@ -28,7 +29,7 @@ public class UserStoryController {
     }
 
     @GetMapping("/{id}")
-    public UserStoryDto getUserStory(@PathVariable Long id) {
+    public UserStoryDto getUserStory(@PathVariable UUID id) {
         return userStoryService.getUserStory(id);
     }
 
