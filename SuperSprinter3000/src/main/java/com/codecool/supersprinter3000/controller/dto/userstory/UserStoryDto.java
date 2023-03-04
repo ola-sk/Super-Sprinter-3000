@@ -1,8 +1,11 @@
-package com.codecool.supersprinter3000.controller.dto;
+package com.codecool.supersprinter3000.controller.dto.userstory;
 
 import com.codecool.supersprinter3000.entity.UserStoryStatus;
 
-public record NewUserStoryDto(
+import java.util.UUID;
+
+public record UserStoryDto(
+        UUID id,
         String title,
         String description,
         String acceptanceCriteria,

@@ -10,5 +10,7 @@ import java.util.UUID;
 @Repository
 public interface UserStoryRepository extends JpaRepository<UserStory, UUID> {
 
-    List<UserStory> findAllByOrderById();
+    List<UserStory> findAllByOrderById(UUID id);
+    //    @Query("SELECT us FROM UserStory us ORDER BY :arg")
+    //    List<UserStory> findAllBySomething(String arg);
 }

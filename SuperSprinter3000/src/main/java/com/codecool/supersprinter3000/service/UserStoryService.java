@@ -1,7 +1,7 @@
 package com.codecool.supersprinter3000.service;
 
-import com.codecool.supersprinter3000.controller.dto.NewUserStoryDto;
-import com.codecool.supersprinter3000.controller.dto.UserStoryDto;
+import com.codecool.supersprinter3000.controller.dto.userstory.NewUserStoryDto;
+import com.codecool.supersprinter3000.controller.dto.userstory.UserStoryDto;
 import com.codecool.supersprinter3000.entity.UserStory;
 import com.codecool.supersprinter3000.mapper.UserStoryMapper;
 import com.codecool.supersprinter3000.repository.UserStoryRepository;
@@ -29,7 +29,7 @@ public class UserStoryService {
                 .toList();
     }
 
-    public UserStoryDto getUserStory(UUID id) {
+    public UserStoryDto getStory(UUID id) {
         return userStoryRepository.findById(id)
                 .map(userStoryMapper::mapUserStoryEntityToDto)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

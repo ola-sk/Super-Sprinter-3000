@@ -1,7 +1,7 @@
 package com.codecool.supersprinter3000.mapper;
 
-import com.codecool.supersprinter3000.controller.dto.NewUserStoryDto;
-import com.codecool.supersprinter3000.controller.dto.UserStoryDto;
+import com.codecool.supersprinter3000.controller.dto.userstory.NewUserStoryDto;
+import com.codecool.supersprinter3000.controller.dto.userstory.UserStoryDto;
 import com.codecool.supersprinter3000.entity.UserStory;
 import org.springframework.stereotype.Component;
 
@@ -19,14 +19,14 @@ public class UserStoryMapper {
         );
     }
 
-    public UserStory mapUserStoryDtoToEntity(NewUserStoryDto dto) {
+    public UserStory mapUserStoryDtoToEntity(NewUserStoryDto newUserStory) {
         return new UserStory(
-                dto.title(),
-                dto.description(),
-                dto.acceptanceCriteria(),
-                dto.estimation(),
-                dto.businessValue(),
-                dto.status()
+                newUserStory.title(),
+                newUserStory.description(),
+                newUserStory.acceptanceCriteria(),
+                newUserStory.estimation(),
+                newUserStory.businessValue(),
+                newUserStory.status()
         );
     }
 }
