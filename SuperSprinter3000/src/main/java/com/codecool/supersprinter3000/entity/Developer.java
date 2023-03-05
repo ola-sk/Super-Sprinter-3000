@@ -12,11 +12,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Entity
 @Data
-@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
+@Entity
 public class Developer {
+
     @Id
     private UUID id = UUID.randomUUID();
     private String firstName;
@@ -30,5 +31,9 @@ public class Developer {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public void addUserStory(UserStory userStory) {
+        userStories.add(userStory);
     }
 }

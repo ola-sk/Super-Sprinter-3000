@@ -5,5 +5,4 @@ public record NewDeveloperDto(
         String lastName,
         String email
 ) {
-
 }

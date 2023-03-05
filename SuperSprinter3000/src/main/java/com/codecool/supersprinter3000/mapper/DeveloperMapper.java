@@ -8,22 +8,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class DeveloperMapper {
 
-    public DeveloperDto mapDeveloperEntityToDto(Developer entity) {
+    private final UserStoryMapper userStoryMapper;
+
+    public DeveloperMapper(UserStoryMapper userStoryMapper) {
+        this.userStoryMapper = userStoryMapper;
+    }
+
+    public Developer mapNewDeveloperDtoToEntity(NewDeveloperDto dto) {
+        return new Developer(dto.firstName(), dto.lastName(), dto.email());
+    }
+
+    public DeveloperDto mapEntityToDeveloperDto(Developer entity) {
         return new DeveloperDto(
                 entity.getId(),
                 entity.getFirstName(),
                 entity.getLastName(),
-                entity.getEmail()
+                entity.getEmail(),
+                entity.getUserStories().stream()
+                        .map(userStoryMapper::mapUserStoryEntityToDto)
+                        .toList()
         );
     }
-
-
-    public Developer mapDeveloperDtoToEntity(NewDeveloperDto newDeveloper) {
-        return new Developer(
-                newDeveloper.firstName(),
-                newDeveloper.lastName(),
-                newDeveloper.email()
-        );
-    }
-
 }

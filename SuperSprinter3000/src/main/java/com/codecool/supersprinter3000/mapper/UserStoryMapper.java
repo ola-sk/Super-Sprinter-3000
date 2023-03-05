@@ -19,14 +19,14 @@ public class UserStoryMapper {
         );
     }
 
-    public UserStory mapUserStoryDtoToEntity(NewUserStoryDto newUserStory) {
+    public UserStory mapUserStoryDtoToEntity(NewUserStoryDto dto) {
         return new UserStory(
-                newUserStory.title(),
-                newUserStory.description(),
-                newUserStory.acceptanceCriteria(),
-                newUserStory.estimation(),
-                newUserStory.businessValue(),
-                newUserStory.status()
+                dto.title(),
+                dto.description(),
+                dto.acceptanceCriteria(),
+                dto.estimation(),
+                dto.businessValue(),
+                dto.status()
         );
     }
 }

@@ -2,8 +2,10 @@ package com.codecool.supersprinter3000.service;
 
 import com.codecool.supersprinter3000.controller.dto.userstory.NewUserStoryDto;
 import com.codecool.supersprinter3000.controller.dto.userstory.UserStoryDto;
+import com.codecool.supersprinter3000.entity.Developer;
 import com.codecool.supersprinter3000.entity.UserStory;
 import com.codecool.supersprinter3000.mapper.UserStoryMapper;
+import com.codecool.supersprinter3000.repository.DeveloperRepository;
 import com.codecool.supersprinter3000.repository.UserStoryRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,10 +18,12 @@ import java.util.UUID;
 public class UserStoryService {
 
     private final UserStoryRepository userStoryRepository;
+    private final DeveloperRepository developerRepository;
     private final UserStoryMapper userStoryMapper;
 
-    public UserStoryService(UserStoryRepository userStoryRepository, UserStoryMapper userStoryMapper) {
+    public UserStoryService(UserStoryRepository userStoryRepository, DeveloperRepository developerRepository, UserStoryMapper userStoryMapper) {
         this.userStoryRepository = userStoryRepository;
+        this.developerRepository = developerRepository;
         this.userStoryMapper = userStoryMapper;
     }
 
@@ -29,7 +33,7 @@ public class UserStoryService {
                 .toList();
     }
 
-    public UserStoryDto getStory(UUID id) {
+    public UserStoryDto getUserStory(UUID id) {
         return userStoryRepository.findById(id)
                 .map(userStoryMapper::mapUserStoryEntityToDto)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -39,5 +43,18 @@ public class UserStoryService {
         UserStory entity = userStoryMapper.mapUserStoryDtoToEntity(newUserStory);
         UserStory savedUserStory = userStoryRepository.save(entity);
         return userStoryMapper.mapUserStoryEntityToDto(savedUserStory);
+    }
+
+    public void assignStoryToDeveloper(UUID userStoryId, UUID developerId) {
+        UserStory userStory = userStoryRepository.findById(userStoryId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        Developer developer = developerRepository.findById(developerId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        userStory.setDeveloper(developer);
+        developer.addUserStory(userStory);
+
+        userStoryRepository.save(userStory);
     }
 }
