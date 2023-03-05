@@ -1,9 +1,12 @@
 package com.codecool.supersprinter3000.mapper;
 
+import com.codecool.supersprinter3000.controller.dto.IdDisplayNamePairDto;
 import com.codecool.supersprinter3000.controller.dto.userstory.NewUserStoryDto;
 import com.codecool.supersprinter3000.controller.dto.userstory.UserStoryDto;
 import com.codecool.supersprinter3000.entity.UserStory;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class UserStoryMapper {
@@ -15,7 +18,8 @@ public class UserStoryMapper {
                 entity.getAcceptanceCriteria(),
                 entity.getEstimation(),
                 entity.getBusinessValue(),
-                entity.getUserStoryStatus()
+                entity.getUserStoryStatus(),
+                getAssignedDevelopers(entity)
         );
     }
 
@@ -28,5 +32,11 @@ public class UserStoryMapper {
                 dto.businessValue(),
                 dto.status()
         );
+    }
+
+    private List<IdDisplayNamePairDto> getAssignedDevelopers(UserStory entity) {
+        return entity.getDevelopers().stream()
+                .map(d -> new IdDisplayNamePairDto(d.getId(), d.getFullName()))
+                .toList();
     }
 }

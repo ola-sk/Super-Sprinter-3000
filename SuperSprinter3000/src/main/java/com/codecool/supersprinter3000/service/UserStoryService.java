@@ -28,13 +28,13 @@ public class UserStoryService {
     }
 
     public List<UserStoryDto> getAllUserStories() {
-        return userStoryRepository.findAll().stream()
+        return userStoryRepository.findAllBy().stream()
                 .map(userStoryMapper::mapUserStoryEntityToDto)
                 .toList();
     }
 
     public UserStoryDto getUserStory(UUID id) {
-        return userStoryRepository.findById(id)
+        return userStoryRepository.findOneById(id)
                 .map(userStoryMapper::mapUserStoryEntityToDto)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
@@ -52,9 +52,17 @@ public class UserStoryService {
         Developer developer = developerRepository.findById(developerId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        userStory.setDeveloper(developer);
+        userStory.assignDeveloper(developer);
         developer.addUserStory(userStory);
 
-        userStoryRepository.save(userStory);
+        developerRepository.save(developer);
+    }
+
+
+    public List<UserStoryDto> getAllUserStoriesWithoutDeveloper() {
+        return userStoryRepository.findAll().stream()
+                .filter(UserStory::hasNoDeveloperAssigned)
+                .map(userStoryMapper::mapUserStoryEntityToDto)
+                .toList();
     }
 }

@@ -29,7 +29,7 @@ public class DeveloperService {
     }
 
     public DeveloperDto getDeveloperById(UUID id) {
-        return developerRepository.findById(id)
+        return developerRepository.findOneById(id)
                 .map(developerMapper::mapEntityToDeveloperDto)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
@@ -39,4 +39,6 @@ public class DeveloperService {
         Developer savedEntity = developerRepository.save(entity);
         return developerMapper.mapEntityToDeveloperDto(savedEntity);
     }
+
+
 }

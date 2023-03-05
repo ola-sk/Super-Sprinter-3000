@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,8 +26,13 @@ public class UserStoryController {
     }
 
     @GetMapping
-    public List<UserStoryDto> getAllUSerStories() {
+    public List<UserStoryDto> getAllUserStories() {
         return userStoryService.getAllUserStories();
+    }
+
+    @GetMapping(params = {"unassignedOnly"})
+    public List<UserStoryDto> getAllUnassignedUserStories(@RequestParam Boolean unassignedOnly) {
+        return userStoryService.getAllUserStoriesWithoutDeveloper();
     }
 
     @GetMapping("/{id}")
@@ -43,4 +49,6 @@ public class UserStoryController {
     public void assignUserStoryToDeveloper(@PathVariable UUID userStoryId, @PathVariable UUID developerId) {
         userStoryService.assignStoryToDeveloper(userStoryId, developerId);
     }
+
+
 }

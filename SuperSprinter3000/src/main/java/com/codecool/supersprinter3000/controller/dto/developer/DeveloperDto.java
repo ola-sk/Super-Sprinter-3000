@@ -1,7 +1,7 @@
 package com.codecool.supersprinter3000.controller.dto.developer;
 
 
-import com.codecool.supersprinter3000.controller.dto.userstory.UserStoryDto;
+import com.codecool.supersprinter3000.controller.dto.IdDisplayNamePairDto;
 
 import java.util.List;
 import java.util.UUID;
@@ -11,6 +11,6 @@ public record DeveloperDto(
         String firstName,
         String lastName,
         String email,
-        List<UserStoryDto> userStories
+        List<IdDisplayNamePairDto> userStories
 ) {
 }
