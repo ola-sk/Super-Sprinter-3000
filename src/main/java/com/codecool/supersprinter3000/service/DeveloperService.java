@@ -3,6 +3,7 @@ package com.codecool.supersprinter3000.service;
 import com.codecool.supersprinter3000.controller.dto.developer.DeveloperDto;
 import com.codecool.supersprinter3000.controller.dto.developer.NewDeveloperDto;
 import com.codecool.supersprinter3000.entity.Developer;
+import com.codecool.supersprinter3000.exception.DeveloperNotFoundException;
 import com.codecool.supersprinter3000.mapper.DeveloperMapper;
 import com.codecool.supersprinter3000.repository.DeveloperRepository;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +40,7 @@ public class DeveloperService {
     public DeveloperDto getDeveloperById(UUID id) {
         return developerRepository.findOneById(id)
                 .map(developerMapper::mapEntityToDeveloperDto)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new DeveloperNotFoundException(id));
     }
 
     public DeveloperDto createDeveloper(NewDeveloperDto developer) {
